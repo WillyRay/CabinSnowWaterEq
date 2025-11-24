@@ -1,0 +1,41 @@
+name: SWE Agent (Claude)
+
+on:
+  schedule:
+    # Daily at 06:00 Mountain Time (13:00 UTC) adjust if needed
+    - cron: '0 13 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  run-agent:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests claude || pip install requests anthropic
+
+      - name: Run SWE agent script
+        env:
+          GH_TOKEN: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python agent_swe_claude.py
+
+      - name: Commit and push snow data
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add snow_data.txt || true
+          git commit -m "agent_swe_claude update snow data" || true
+          git push

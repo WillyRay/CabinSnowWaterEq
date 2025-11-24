@@ -1,5 +1,4 @@
-name: Check Snow Water Equivalent
-
+name:  Agent: Copilot Instructions SWE Task
 on:
   schedule:
     # Run daily at 06:00 Mountain Time (13:00 UTC)
