@@ -19,12 +19,12 @@ The format for the output file should be:
 ```
 <if swe greater than 10, add this line>
   Warning: SWE exceeds 10 inches! Action Required!
-Snow Water Equivalent: <swe> inches
-Last Updated: <timestamp in UTC>
-Snow Depth: <depth> inches
-Snow Density: <density> %
-Station: Island Park (ISPI1)
-Source: https://www.nwrfc.noaa.gov/snow/snowplot.cgi?ISPI1
+- Snow Water Equivalent: <swe> inches
+- Last Updated: <timestamp in UTC>
+- Snow Depth: <depth> inches
+- Snow Density: <density> %
+- Station: Island Park (ISPI1)
+- Source: https://www.nwrfc.noaa.gov/snow/snowplot.cgi?ISPI1
 ```
 This data should be saved in a file called `snow_data.txt` in the root of
 the repository.  Write the file every day and commit it to the repository.
