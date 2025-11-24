@@ -11,14 +11,18 @@ https://www.nwrfc.noaa.gov/snow/snowplot.cgi?ISPI1
 There are several columns of data.  Give me the most recent values
 for Date, Snow Water Equivalent (inches), Snow Depth, and Snow Density.
 
+The value on 11/23/2025 should be 0.0 inches for SWE, -9999.0 for Snow Depth,
+0 % for Snow Density.  Find the columns in the table, and extract the most
+recent values.
+
 The format for the output file should be:
 ```
 <if swe greater than 10, add this line>
   Warning: SWE exceeds 10 inches! Action Required!
-Snow Water Equivalent: <value> inches
+Snow Water Equivalent: <swe> inches
 Last Updated: <timestamp in UTC>
-Snow Depth: <value> inches
-Snow Density: <value> %
+Snow Depth: <depth> inches
+Snow Density: <density> %
 Station: Island Park (ISPI1)
 Source: https://www.nwrfc.noaa.gov/snow/snowplot.cgi?ISPI1
 ```
