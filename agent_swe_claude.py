@@ -13,7 +13,7 @@ response = requests.get(url)
 web_text = response.text
 
 # Set up the Claude API
-api_key = os.getenv('ANTHROPIC_API_KEY')
+api_key = secrets.getenv('ANTHROPIC_API_KEY')
 headers = {'Authorization': f'Bearer {api_key}', 'Content-Type': 'application/json'}
 
 # Prepare the payload for the Claude API
@@ -30,7 +30,19 @@ payload = {
 
 # Call the Claude API to extract SWE
 response = requests.post('https://api.anthropic.com/v1/messages', headers=headers, json=payload)
-result = response.json()['content'][0]['text']
+
+# Check for errors in the response
+if response.status_code != 200:
+    print(f"API Error: {response.status_code}")
+    print(f"Response: {response.text}")
+    exit(1)
+
+response_json = response.json()
+if 'error' in response_json:
+    print(f"API Error: {response_json['error']}")
+    exit(1)
+
+result = response_json['content'][0]['text']
 
 # Output the result to snow_data.txt
 with open('snow_data.txt', 'w') as output_file:

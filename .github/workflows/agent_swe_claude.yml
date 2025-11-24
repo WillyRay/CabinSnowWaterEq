@@ -28,7 +28,7 @@ jobs:
 
       - name: Run SWE agent script
         env:
-          GH_TOKEN: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           python agent_swe_claude.py
 
