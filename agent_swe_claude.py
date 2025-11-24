@@ -37,7 +37,7 @@ payload = {
         {
             'role': 'user',
             # Use full markdown instructions verbatim followed by raw page HTML
-            'content': f"{instructions}\n\nPage HTML (raw):\n{web_text}"
+            'content': f"{instructions}\n\nPage HTML (raw):\n{web_text}\n\nIMPORTANT: Output ONLY the formatted data in the exact format specified in lines 19-28 above. Do not include any explanation, narrative, or additional text. Just the formatted output."
         }
     ]
 }
