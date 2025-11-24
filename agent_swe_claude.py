@@ -74,27 +74,6 @@ with open('snow_data.txt', 'w', encoding='utf-8') as output_file:
 print("snow_data.txt written")
 
 # Update README.md with current snow data
-readme_content = f"""{final_text}
-
-## Project Description
-
-This repository monitors the snow water equivalent (SWE) at a small cabin in Island Park, Idaho. The SWE data is automatically fetched daily from the NOAA Island Park (ISPI1) snow monitoring station.
-
-### Purpose
-Monitor snow conditions to determine when roof shoveling is needed. A warning is issued when SWE exceeds 10 inches.
-
-### Data Source
-- Station: Island Park (ISPI1)
-- URL: https://www.nwrfc.noaa.gov/snow/snowplot.cgi?ISPI1
-- Data updated daily at 06:00 Mountain Time
-
-### Data Fields
-- **Snow Water Equivalent (SWE)**: Water content of the snowpack in inches
-- **Snow Depth**: Total depth of snow in inches
-- **Snow Density**: Ratio of water weight to snow volume as a percentage
-- **Last Updated**: UTC timestamp of the most recent measurement
-"""
-
 with open('README.md', 'w', encoding='utf-8') as readme_file:
-    readme_file.write(readme_content)
+    readme_file.write(final_text + '\n')
 print("README.md written")
