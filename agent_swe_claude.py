@@ -31,7 +31,7 @@ headers = {
 
 # Prepare the payload for the Claude API
 payload = {
-    'model': 'claude-3-5-sonnet-20241022',
+    'model': 'claude-opus-4-1-20250805',
     'max_tokens': 800,
     'messages': [
         {
