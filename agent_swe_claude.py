@@ -13,7 +13,7 @@ response = requests.get(url)
 web_text = response.text
 
 # Set up the Claude API
-api_key = secrets.getenv('ANTHROPIC_API_KEY')
+api_key = os.getenv('ANTHROPIC_API_KEY')
 headers = {'Authorization': f'Bearer {api_key}', 'Content-Type': 'application/json'}
 
 # Prepare the payload for the Claude API
