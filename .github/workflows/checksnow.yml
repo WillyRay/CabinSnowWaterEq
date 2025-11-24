@@ -2,7 +2,8 @@ name: Check Snow Water Equivalent
 
 on:
   schedule:
-    - cron: '0 13 * * *'  # Run daily at 06:00 Mountain Time (13:00 UTC)
+    # Run daily at 06:00 Mountain Time (13:00 UTC)
+    - cron: '0 13 * * *'
   workflow_dispatch:  # Allow manual trigger
 
 permissions:
@@ -16,26 +17,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       
-      - name: Install GitHub Copilot CLI
-        run: |
-          # Install GitHub CLI if not present
-          type -p gh &>/dev/null || (curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
-          && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
-          && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-          && sudo apt update \
-          && sudo apt install gh -y)
-          
-          # Authenticate and install Copilot extension
-          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
-          gh extension install github/gh-copilot || gh extension upgrade gh-copilot
-      
       - name: Fetch snow data and extract SWE with Copilot
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Fetch the webpage
-          curl -s "https://www.nwrfc.noaa.gov/snow/snowplot.cgi?ISPI1" > snow_page.html
+          # Read instructions from copilot-instructions.md
+          INSTRUCTIONS=$(cat .github/copilot-instructions.md)
           
-          # Use GitHub Copilot to extract the most recent Snow Water Equivalent
-          SWE=$(gh copilot suggest -t shell "Extract the most recent Snow Water Equivalent value in inches from snow_page.html and output only the numeric value" | grep -oP '\d+\.\d+|\d+' | head -1)
+          # Fetch the webpage
+          curl -s "https://www.nwrfc.noaa.gov/snow/snowplot.cgi?ISPI1" \
+            > snow_page.html
+          
+          # Use GitHub Copilot with instructions from the file
+          SWE=$(gh copilot suggest -t shell "$INSTRUCTIONS" \
+            | grep -oP '\d+\.\d+|\d+' | head -1)
           
           # Get timestamp
           TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
@@ -44,14 +39,17 @@ jobs:
           echo "Last Updated: $TIMESTAMP" > snow_data.txt
           echo "Snow Water Equivalent: $SWE inches" >> snow_data.txt
           echo "Station: Island Park (ISPI1)" >> snow_data.txt
-          echo "Source: https://www.nwrfc.noaa.gov/snow/snowplot.cgi?ISPI1" >> snow_data.txt
+          echo "Source: https://www.nwrfc.noaa.gov/snow/snowplot.cgi?ISPI1" \
+            >> snow_data.txt
           
           cat snow_data.txt
       
       - name: Commit and push if changed
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.email \
+            "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add snow_data.txt
-          git diff --staged --quiet || git commit -m "Update snow water equivalent data"
+          git diff --staged --quiet \
+            || git commit -m "Update snow water equivalent data"
           git push
