@@ -1,0 +1,4 @@
+Last Updated: 2025-11-24 15:53:27 UTC
+Snow Water Equivalent: 2025 inches
+Station: Island Park (ISPI1)
+Source: https://www.nwrfc.noaa.gov/snow/snowplot.cgi?ISPI1
