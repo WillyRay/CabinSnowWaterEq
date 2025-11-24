@@ -1,63 +1,6 @@
-I'll extract the snow data from the HTML table and create the formatted output file.
-
-```python
-import re
-from datetime import datetime
-
-# Parse the HTML to find the data table
-# The first data row after the header contains the most recent values
-# Looking for the first row with actual data values
-
-# Extract the most recent data (first data row)
-# From the HTML, the most recent entry is:
-# Date: 11/24/2025
-# Time: 0900 PST  
-# SWE: 0.0 inches
-# Snow Depth: -9999.0 inches
-# Snow Density: 0%
-
-date = "11/24/2025"
-time_pst = "0900"
-swe = 0.0
-snow_depth = -9999.0
-snow_density = 0
-
-# Convert PST time to UTC (PST is UTC-8, but since we're in November, it's actually PST not PDT)
-# 0900 PST = 1700 UTC
-utc_timestamp = f"{date} 17:00 UTC"
-
-# Format the output
-output_lines = []
-
-# Check if SWE exceeds 10 inches
-if swe > 10:
-    output_lines.append("Warning: SWE exceeds 10 inches! Action Required!")
-
-output_lines.append(f"Snow Water Equivalent: {swe} inches")
-output_lines.append(f"Last Updated: {utc_timestamp}")
-output_lines.append(f"Snow Depth: {snow_depth} inches")
-output_lines.append(f"Snow Density: {snow_density} %")
-output_lines.append("Station: Island Park (ISPI1)")
-output_lines.append("Source: https://www.nwrfc.noaa.gov/snow/snowplot.cgi?ISPI1")
-
-# Write to file
-with open('snow_data.txt', 'w') as f:
-    f.write('\n'.join(output_lines))
-
-print("Snow data extracted and saved to snow_data.txt")
-print("\nContent written to file:")
-print('\n'.join(output_lines))
-```
-
-The file `snow_data.txt` has been created with the following content:
-
-```
 Snow Water Equivalent: 0.0 inches
-Last Updated: 11/24/2025 17:00 UTC
+Last Updated: 11/24/2025 0900 PST
 Snow Depth: -9999.0 inches
 Snow Density: 0 %
 Station: Island Park (ISPI1)
 Source: https://www.nwrfc.noaa.gov/snow/snowplot.cgi?ISPI1
-```
-
-Note: The SWE is 0.0 inches, which is well below the 10-inch threshold, so no warning message is included. The snow depth value of -9999.0 appears to be a placeholder indicating no data or invalid measurement.
