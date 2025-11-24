@@ -6,7 +6,7 @@ monitor the snow water equivalent (SWE) at your location.  Any SWE greater
 than 10 means you need to shovel the roof.  
 
 The website that shows this is: 
-https://www.nwrfc.noaa.gov/snow/snowplot.cgi?ISPI1
+URL: https://www.nwrfc.noaa.gov/snow/snowplot.cgi?ISPI1
 
 There are several columns of data.  Give me the most recent values
 for Date, Snow Water Equivalent (inches), Snow Depth, and Snow Density.
