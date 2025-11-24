@@ -5,9 +5,8 @@ import requests
 with open('.github/copilot-instructions.md', 'r') as f:
     instructions = f.read()
 
-# Extract the target URL from the instructions
-# Assuming the URL is mentioned clearly in the instructions
-url = instructions.split('URL: ')[1].split('\n')[0]
+# Hard-coded target URL for Island Park (ISPI1) station
+url = "https://www.nwrfc.noaa.gov/snow/snowplot.cgi?ISPI1"
 
 # Get the web page text
 response = requests.get(url)
