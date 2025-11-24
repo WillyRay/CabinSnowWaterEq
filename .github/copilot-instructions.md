@@ -15,6 +15,8 @@ The value on 11/23/2025 should be 0.0 inches for SWE, -9999.0 for Snow Depth,
 0 % for Snow Density.  Find the columns in the table, and extract the most
 recent values.
 
+# IMPORTANT: Output ONLY the formatted data in the exact format specified in lines 21-29 below. Do not include any explanation, narrative, or additional text. Just the formatted output.
+
 The format for the output file should be:
 ```
 <if swe greater than 10, add this line>
@@ -29,7 +31,7 @@ The format for the output file should be:
 This data should be saved in a file called `snow_data.txt` in the root of
 the repository.  Write the file every day and commit it to the repository.
 
-IMPORTANT: Output ONLY the formatted data in the exact format specified in lines 19-28 above. Do not include any explanation, narrative, or additional text. Just the formatted output."
+
 
 
 - Source: Island Park (ISPI1) snow monitoring station
