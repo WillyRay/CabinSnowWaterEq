@@ -36,6 +36,6 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add snow_data.txt || true
+          git add snow_data.txt README.md || true
           git commit -m "agent_swe_claude update snow data" || true
           git push
