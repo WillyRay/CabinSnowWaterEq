@@ -24,32 +24,7 @@ jobs:
           # Read instructions from copilot-instructions.md
           INSTRUCTIONS=$(cat .github/copilot-instructions.md)
           
-          # Fetch the webpage
-          curl -s "https://www.nwrfc.noaa.gov/snow/snowplot.cgi?ISPI1" \
-            > snow_page.html
           
           # Use GitHub Copilot with instructions from the file
-          SWE=$(gh copilot suggest -t shell "$INSTRUCTIONS" \
-            | grep -oP '\d+\.\d+|\d+' | head -1)
-          
-          # Get timestamp
-          TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
-          
-          # Create or update the data file
-          echo "Last Updated: $TIMESTAMP" > snow_data.txt
-          echo "Snow Water Equivalent: $SWE inches" >> snow_data.txt
-          echo "Station: Island Park (ISPI1)" >> snow_data.txt
-          echo "Source: https://www.nwrfc.noaa.gov/snow/snowplot.cgi?ISPI1" \
-            >> snow_data.txt
-          
-          cat snow_data.txt
-      
-      - name: Commit and push if changed
-        run: |
-          git config --local user.email \
-            "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add snow_data.txt
-          git diff --staged --quiet \
-            || git commit -m "Update snow water equivalent data"
-          git push
+          SWE=$(gh copilot -p "$INSTRUCTIONS" )       
+ 
