@@ -1,0 +1,33 @@
+import os
+import requests
+
+# Read instructions from the specified markdown file
+with open('.github/copilot-instructions.md', 'r') as f:
+    instructions = f.read()
+
+# Extract the target URL from the instructions
+# Assuming the URL is mentioned clearly in the instructions
+url = instructions.split('URL: ')[1].split('\n')[0]
+
+# Get the web page text
+response = requests.get(url)
+web_text = response.text
+
+# Set up the Claude API
+api_key = os.getenv('ANTHROPIC_API_KEY')
+headers = {'Authorization': f'Bearer {api_key}', 'Content-Type': 'application/json'}
+
+# Prepare the payload for the Claude API
+payload = {
+    'model': 'claude-1',
+    'prompt': f'{instructions}\n\nPage Text:\n{web_text}',
+    'max_tokens': 1000
+}
+
+# Call the Claude API to extract SWE
+response = requests.post('https://api.anthropic.com/v1/complete', headers=headers, json=payload)
+result = response.json()['completion']
+
+# Output the result to snow_data.txt
+with open('snow_data.txt', 'w') as output_file:
+    output_file.write(result.strip())
