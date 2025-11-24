@@ -30,30 +30,15 @@ headers = {
 }
 
 # Prepare the payload for the Claude API
-prompt = f"""You are extracting structured snow data for Island Park (ISPI1).
-Return ONLY the following exact format (no extra commentary):
-<warning line if SWE > 10>
-Snow Water Equivalent: <swe> inches
-Last Updated: <UTC timestamp>
-Snow Depth: <depth> inches
-Snow Density: <density> %
-Station: Island Park (ISPI1)
-Source: https://www.nwrfc.noaa.gov/snow/snowplot.cgi?ISPI1
-
-If SWE <= 10 omit the warning line entirely. Use the most recent row (top
-of table). If a field is missing use the sentinel values specified in the
-instructions. Timestamp should be current UTC now in ISO-like
-YYYY-MM-DD HH:MM:SS UTC.
-Do not include markdown fences.
-Page HTML below:
-{web_text}
-"""
-
 payload = {
     'model': 'claude-3-5-sonnet-20241022',
     'max_tokens': 800,
     'messages': [
-        {'role': 'user', 'content': prompt}
+        {
+            'role': 'user',
+            # Use full markdown instructions verbatim followed by raw page HTML
+            'content': f"{instructions}\n\nPage HTML (raw):\n{web_text}"
+        }
     ]
 }
 
