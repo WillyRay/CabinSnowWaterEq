@@ -14,28 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      
-      - name: Fetch snow data and extract SWE with Copilot
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # Read instructions from copilot-instructions.md
-          INSTRUCTIONS=$(cat .github/copilot-instructions.md)
-          
-          # Use Copilot to generate and execute the command
-          # The -s flag outputs to a file which we can then execute
-          gh copilot suggest -t shell "$INSTRUCTIONS" -s copilot_cmd.sh
-          
-          # Execute what Copilot generated
-          bash copilot_cmd.sh
-      
-      - name: Commit and push data
-        run: |
-          git config --local user.email \
-            "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add snow_data.txt
-          git commit -m "Update snow water equivalent data"
-          git push
+      - name: Run Agent to Process Copilot Instructions
+        uses: github/agent@latest
+        with:
+          goal: |
+            Read the instructions in .github/copilot-instructions.md.
+            Follow all instructions to fetch, extract, and save snow water equivalent information as directed.
+            Make sure your output file, commit message, and extracted data match the instructions.
