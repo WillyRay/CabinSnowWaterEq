@@ -29,6 +29,7 @@ Source: https://www.nwrfc.noaa.gov/snow/snowplot.cgi?ISPI1
 This data should be saved in a file called `snow_data.txt` in the root of
 the repository.  Write the file every day and commit it to the repository.
 
+IMPORTANT: Output ONLY the formatted data in the exact format specified in lines 19-28 above. Do not include any explanation, narrative, or additional text. Just the formatted output."
 
 
 - Source: Island Park (ISPI1) snow monitoring station
