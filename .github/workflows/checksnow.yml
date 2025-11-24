@@ -18,11 +18,24 @@ jobs:
         uses: actions/checkout@v4
       
       - name: Fetch snow data and extract SWE with Copilot
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Read instructions from copilot-instructions.md
           INSTRUCTIONS=$(cat .github/copilot-instructions.md)
           
+          # Use Copilot to generate and execute the command
+          # The -s flag outputs to a file which we can then execute
+          gh copilot suggest -t shell "$INSTRUCTIONS" -s copilot_cmd.sh
           
-          # Use GitHub Copilot with instructions from the file
-          SWE=$(gh copilot -p "$INSTRUCTIONS" )       
- 
+          # Execute what Copilot generated
+          bash copilot_cmd.sh
+      
+      - name: Commit and push data
+        run: |
+          git config --local user.email \
+            "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add snow_data.txt
+          git commit -m "Update snow water equivalent data"
+          git push
