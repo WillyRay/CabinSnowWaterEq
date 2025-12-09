@@ -1,6 +1,6 @@
-- Snow Water Equivalent: 1.9 inches
-- Last Updated: 2025-12-08 12:00:00 UTC
-- Snow Depth: N/A inches
-- Snow Density: N/A %
+- Snow Water Equivalent: 2.0 inches
+- Last Updated: 12/09/2025 12:00 UTC
+- Snow Depth: 11.0 inches
+- Snow Density: 18 %
 - Station: Island Park (ISPI1)
 - Source: https://www.nwrfc.noaa.gov/snow/snowplot.cgi?ISPI1
