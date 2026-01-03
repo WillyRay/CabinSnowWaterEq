@@ -1,6 +1,9 @@
-I notice the website is returning an error page instead of the expected snow data. Since I cannot access the actual data from the HTML provided (it shows a service error), I cannot extract the current values.
-
-Based on the error page shown, the NOAA website appears to be experiencing technical difficulties. Without access to the actual data table, I cannot provide the current snow measurements for the Island Park station.
+- Snow Water Equivalent: 4.4 inches
+- Last Updated: 2026-01-03 11:00:00 UTC
+- Snow Depth: 13.0 inches
+- Snow Density: 34 %
+- Station: Island Park (ISPI1)
+- Source: https://www.nwrfc.noaa.gov/snow/snowplot.cgi?ISPI1
 
 ### Data:
 - Snow Water Equivalent (SWE): Water content of the snowpack in inches
